@@ -1,92 +1,84 @@
-let s:settings = {}
-
-function! devicons_palette#settings(settings) abort
-  let ss = {}
-  let ss = extend(ss, g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols)
-  let ss = extend(ss, g:WebDevIconsUnicodeDecorateFileNodesExactSymbols)
-  let s:settings = {}
-  for [group, icons] in items(a:settings)
-    let icons = map(copy(icons), { -> get(ss, v:val, v:val)})
-    let icons = uniq(sort(icons))
-    let s:settings[group] = icons
-  endfor
-endfunction
+let s:palette = {}
 
 function! devicons_palette#show() abort
   new
-  for [group, icons] in items(s:settings)
+  for [group, icons] in items(s:palette)
     for icon in icons
       call append('$', icon . ' ' . "\t" . group)
     endfor
   endfor
-  call s:apply()
+  call devicons_palette#apply(v:true)
   setlocal nolist noswapfile nobackup
   setlocal buftype=nofile bufhidden=wipe
   setlocal nomodifiable nomodified
 endfunction
 
-function! devicons_palette#apply() abort
-  for [group, icons] in items(s:settings)
-    if !empty(icons)
-      execute printf(
-            \ 'syntax match %s /\v%s./ containedin=ALL',
-            \ group,
-            \ join(icons, '|'),
-            \)
-    endif
+function! devicons_palette#apply(...) abort
+  let immediate = a:0 ? a:1 : 0
+  let winid = win_getid()
+  if immediate
+    call s:apply(winid)
+  else
+    call timer_start(0, { -> s:apply(winid) })
+  endif
+endfunction
+
+function! devicons_palette#update_colors() abort
+  let colors = s:find_colors()
+  let ps = map(copy(colors), { k, v -> ['DevIconsPalette' . k, v, k] })
+  let es = map(ps, { _, v -> printf('hi default %s guifg=%s ctermfg=%s', v[0], v[1], v[2]) })
+  silent execute join(es, ' | ')
+  augroup devicons_palette_colors_internal
+    autocmd! *
+    autocmd ColorScheme * ++once call devicons_palette#update_colors()
+  augroup END
+endfunction
+
+function! devicons_palette#update_palette() abort
+  let palette = s:find_palette()
+  let ss = {}
+  let ss = extend(ss, g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols)
+  let ss = extend(ss, g:WebDevIconsUnicodeDecorateFileNodesExactSymbols)
+  let s:palette = {}
+  for [group, icons] in items(palette)
+    let icons = map(copy(icons), { -> get(ss, v:val, v:val)})
+    let icons = uniq(sort(icons))
+    let s:palette[group] = icons
   endfor
 endfunction
 
-function! devicons_palette#delay_apply() abort
-  let winid = win_getid()
-  call timer_start(0, { -> s:apply_on_window(winid) })
+function! s:find_palette() abort
+  if exists('g:devicons_palette_palette')
+    return g:devicons_palette_palette
+  endif
+  return g:devicons_palette#defaults#palette
 endfunction
 
-function! s:apply_on_window(winid) abort
+function! s:find_colors() abort
+  if exists('g:devicons_palette_colors')
+    return g:devicons_palette_colors
+  elseif exists('g:terminal_ansi_colors') " vim
+    return g:terminal_ansi_colors
+  elseif exists('g:terminal_color_0') " nvim
+    return map(range(0, 15), { -> eval('g:terminal_color_' . v:val) })
+  endif
+  return g:devicons_palette#defaults#colors[&background]
+endfunction
+
+function! s:apply(winid) abort
   let winid_saved = win_getid()
-  if winid_saved isnot# a:winid
-    call win_gotoid(a:winid)
-  endif
-  call devicons_palette#apply()
-  if winid_saved isnot# a:winid
-    call win_gotoid(winid_saved)
-  endif
+  try
+    noautocmd keepjumps call win_gotoid(a:winid)
+    for [group, icons] in items(s:palette)
+      if !empty(icons)
+        execute printf(
+              \ 'syntax match %s /\v%s./ containedin=ALL',
+              \ group,
+              \ join(icons, '|'),
+              \)
+      endif
+    endfor
+  finally
+    noautocmd keepjumps call win_gotoid(winid_saved)
+  endtry
 endfunction
-
-function! s:highlight() abort
-  highlight default DevIconsPaletteRed guifg=Red
-  highlight default DevIconsPaletteLightRed guifg=LightRed
-  highlight default DevIconsPaletteDarkRed guifg=DarkRed
-  highlight default DevIconsPaletteGreen guifg=Green
-  highlight default DevIconsPaletteLightGreen guifg=LightGreen
-  highlight default DevIconsPaletteDarkGreen guifg=DarkGreen
-  highlight default DevIconsPaletteSeaGreen guifg=SeaGreen
-  highlight default DevIconsPaletteBlue guifg=Blue
-  highlight default DevIconsPaletteLightBlue guifg=LightBlue
-  highlight default DevIconsPaletteDarkBlue guifg=DarkBlue
-  highlight default DevIconsPaletteSlateBlue guifg=SlateBlue
-  highlight default DevIconsPaletteCyan guifg=Cyan
-  highlight default DevIconsPaletteLightCyan guifg=LightCyan
-  highlight default DevIconsPaletteDarkCyan guifg=DarkCyan
-  highlight default DevIconsPaletteMagenta guifg=Magenta
-  highlight default DevIconsPaletteLightMagenta guifg=LightMagenta
-  highlight default DevIconsPaletteDarkMagenta guifg=DarkMagenta
-  highlight default DevIconsPaletteYellow guifg=Yellow
-  highlight default DevIconsPaletteLightYellow guifg=LightYellow
-  highlight default DevIconsPaletteBrown guifg=Brown
-  highlight default DevIconsPaletteDarkYellow guifg=DarkYellow
-  highlight default DevIconsPaletteGray guifg=Gray
-  highlight default DevIconsPaletteLightGray guifg=LightGray
-  highlight default DevIconsPaletteDarkGray guifg=DarkGray
-  highlight default DevIconsPaletteBlack guifg=Black
-  highlight default DevIconsPaletteWhite guifg=White
-  highlight default DevIconsPaletteOrange guifg=Orange
-  highlight default DevIconsPalettePurple guifg=Purple
-  highlight default DevIconsPaletteViolet guifg=Violet
-endfunction
-call s:highlight()
-
-augroup devicons_palette_internal
-  autocmd! *
-  autocmd ColorScheme * call s:highlight()
-augroup END
