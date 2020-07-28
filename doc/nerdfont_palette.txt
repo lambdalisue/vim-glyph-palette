@@ -1,58 +1,58 @@
-*devicons_palette.txt*			An universal palette for vim-devicons
+*nerdfont_palette.txt*	An universal palette for nerdfont.vim/vim-devicons
 
 Author:  Alisue <lambdalisue@hashnote.net>
 License: MIT license
 
 =============================================================================
-CONTENTS				*devicons-palette-contents*
+CONTENTS				*nerdfont-palette-contents*
 
-INTRODUCTION				|devicons-palette-introduction|
-INTERFACE				|devicons-palette-interface|
-  VARIABLE				|devicons-palette-variable|
-  FUNCTION				|devicons-palette-function|
-  HIGHLIGHT				|devicons-palette-highlight|
+INTRODUCTION				|nerdfont-palette-introduction|
+INTERFACE				|nerdfont-palette-interface|
+  VARIABLE				|nerdfont-palette-variable|
+  FUNCTION				|nerdfont-palette-function|
+  HIGHLIGHT				|nerdfont-palette-highlight|
 
 
 =============================================================================
-INTRODUCTION				*devicons-palette-introduction*
+INTRODUCTION				*nerdfont-palette-introduction*
 
 TBW
 
 
 =============================================================================
-INTERFACE				*devicons-palette-interface*
+INTERFACE				*nerdfont-palette-interface*
 
 -----------------------------------------------------------------------------
-VARIABLE				*devicons-palette-variable*
+VARIABLE				*nerdfont-palette-variable*
 
 TBW
 
 -----------------------------------------------------------------------------
-FUNCTION				*devicons-palette-function*
+FUNCTION				*nerdfont-palette-function*
 
-					*devicons_palette#show()*
-devicons_palette#show()
+					*nerdfont_palette#show()*
+nerdfont_palette#show()
 	Open a new non-file buffer to show the current palette.
 	It is mainly for debugging purpose.
 
-					*devicons_palette#apply()*
-devicons_palette#apply([{immediate}])
-	Apply devicons palette on the current buffer. The actual application
+					*nerdfont_palette#apply()*
+nerdfont_palette#apply([{immediate}])
+	Apply nerdfont palette on the current buffer. The actual application
 	has delayed unless {immediate} argument is truthly value.
 	Use this function with |FileType| |autocmd| to apply palette on a
 	particular plugins such as fern.vim, NerdTree, vim-startify, etc.
 >
-	augroup my-devicons-palette
+	augroup my-nerdfont-palette
 	  autocmd! *
-	  autocmd FileType fern call devicons_palette#apply()
-	  autocmd FileType nerdtree,startify call devicons_palette#apply()
+	  autocmd FileType fern call nerdfont_palette#apply()
+	  autocmd FileType nerdtree,startify call nerdfont_palette#apply()
 	augroup END
 <
 
 -----------------------------------------------------------------------------
-HIGHLIGHT				*devicons-palette-highlight*
+HIGHLIGHT				*nerdfont-palette-highlight*
 
-devicons_palette defines the following |highlight| groups
+nerdfont_palette defines the following |highlight| groups
 
 Name			Color~
 DevIconsPalette0	Black				*hl-DevIconsPalette0*
