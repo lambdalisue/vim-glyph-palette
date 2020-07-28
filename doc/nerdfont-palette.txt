@@ -1,0 +1,162 @@
+*nerdfont-palette.txt*	An universal palette for nerdfont.vim/vim-devicons
+
+Author:  Alisue <lambdalisue@hashnote.net>
+License: MIT license
+
+=============================================================================
+CONTENTS				*nerdfont-palette-contents*
+
+INTRODUCTION				|nerdfont-palette-introduction|
+USAGE					|nerdfont-palette-usage|
+INTERFACE				|nerdfont-palette-interface|
+  VARIABLE				|nerdfont-palette-variable|
+  FUNCTION				|nerdfont-palette-function|
+  HIGHLIGHT				|nerdfont-palette-highlight|
+
+
+=============================================================================
+INTRODUCTION				*nerdfont-palette-introduction*
+
+*nerdfont-palette.vim* (nerdfont-palette) is a plugin to provide an universal
+palette for nerdfont.vim[1] or vim-devicons[2].
+
+Once the plugin has installed, any glyphs of nerdfont (devicons) are
+highlighted by the (customizable) pre-defined palette.
+
+[1] https://github.com/lambdalisue/nerdfont.vim
+[2] https://github.com/ryanoasis/vim-devicons
+
+
+=============================================================================
+USAGE					*nerdfont-palette-usage*
+
+First of all, make sure nerdfont.vim or vim-devicons has installed. Then
+set |g:nerdfont_palette#source| properly like:
+>
+	" For nerdfont.vim
+	let g:nerdfont_palette#source = 'nerdfont'
+
+	" For vim-devicons
+	let g:nerdfont_palette#source = 'devicons'
+<
+After that, call |nerdfont_palette#apply()| function on a target buffer like:
+>
+	augroup my-nerdfont-palette
+	  autocmd! *
+	  autocmd FileType fern call nerdfont_palette#apply()
+	  autocmd FileType nerdtree call nerdfont_palette#apply()
+	  autocmd FileType startify call nerdfont_palette#apply()
+	augroup END
+<
+To customize colors or palette, see |nerdfont-palette-variable|.
+
+
+=============================================================================
+INTERFACE				*nerdfont-palette-interface*
+
+-----------------------------------------------------------------------------
+VARIABLE				*nerdfont-palette-variable*
+
+*g:nerdfont_palette#source*
+	A |String| to indicate the glyph source. Available value is one of
+	"nerdfont" (nerdfont.vim) or "devicons" (vim-devicons).
+
+	Default: "nerdfont"
+
+*g:nerdfont_palette#defaults#colors*
+	16 indexed color set for "light" and "dark" 'background'.
+	Note that users MUST call |nerdfont_palette#update_colors()| to
+	update actual colors after users edit this variable.
+
+	For example:
+>
+	let g:nerdfont_palette#defaults#colors = {
+	      \ 'light': ['#00000', ...],
+	      \ 'dark': ['#00000', ...],
+	      \}
+	call nerdfont_palette#update_colors()
+<
+	Note that the default color has copied from iceberg.vim
+	https://github.com/cocopon/iceberg.vim
+
+*g:nerdfont_palette#defaults#palette*
+	A highlight-glyphs |Dictionary| which key is a |highlight-groups| and
+	value is a |List| of glyphs. Glyphs can be actual glyphs, extensions
+	used in nerdfont.vim/vim-devicons, or basename used in
+	nerdfont.vim/vim-devicons. 
+	Note that users MUST call |nerdfont_palette#update_palette()| to
+	update actual palette after users edit this variable.
+
+	For example:
+>
+	let g:nerdfont_palette#defaults#palette = {
+	      \ 'NerdfontPalette1': [
+	      \   'rb', 'scala', 'd',
+	      \ ],
+	      \ 'NerdfontPalette8': [
+	      \   '', '', '', '',
+	      \ ],
+	      \}
+	call nerdfont_palette#update_palette()
+<
+	Note that the default value has constructed from defx-icons.
+	https://github.com/kristijanhusak/defx-icons
+
+-----------------------------------------------------------------------------
+FUNCTION				*nerdfont-palette-function*
+
+					*nerdfont_palette#show()*
+nerdfont_palette#show()
+	Open a new non-file buffer to show the current palette.
+	It is mainly for debugging purpose.
+
+					*nerdfont_palette#apply()*
+nerdfont_palette#apply([{immediate}])
+	Apply nerdfont palette on the current buffer. The actual application
+	has delayed unless {immediate} argument is truthly value.
+	Use this function with |FileType| |autocmd| to apply palette on a
+	particular plugins such as fern.vim, NerdTree, vim-startify, etc.
+>
+	augroup my-nerdfont-palette
+	  autocmd! *
+	  autocmd FileType fern call nerdfont_palette#apply()
+	  autocmd FileType nerdtree,startify call nerdfont_palette#apply()
+	augroup END
+<
+					*nerdfont_palette#update_colors()*
+nerdfont_palette#update_colors()
+	Update internal colors from |g:nerdfont_palette#defaults#colors|.
+	Users MUST call this function after they touch the above variable.
+
+					*nerdfont_palette#update_palette()*
+nerdfont_palette#update_palette()
+	Update internal palette from |g:nerdfont_palette#defaults#palette|.
+	Users MUST call this function after they touch the above variable.
+
+
+-----------------------------------------------------------------------------
+HIGHLIGHT				*nerdfont-palette-highlight*
+
+nerdfont_palette defines the following |highlight-groups|.
+
+Name			Color~
+NerdfontPalette0	Black			*hl-NerdfontPalette0*
+NerdfontPalette1	Red			*hl-NerdfontPalette1*
+NerdfontPalette2	Green			*hl-NerdfontPalette2*
+NerdfontPalette3	Yellow			*hl-NerdfontPalette3*
+NerdfontPalette4	Blue			*hl-NerdfontPalette4*
+NerdfontPalette5	Magenta			*hl-NerdfontPalette5*
+NerdfontPalette6	Cyan			*hl-NerdfontPalette6*
+NerdfontPalette7	White			*hl-NerdfontPalette7*
+NerdfontPalette8	Bright Black		*hl-NerdfontPalette8*
+NerdfontPalette9	Bright Red		*hl-NerdfontPalette9*
+NerdfontPalette10	Bright Green		*hl-NerdfontPalette10*
+NerdfontPalette11	Bright Yellow		*hl-NerdfontPalette11*
+NerdfontPalette12	Bright Blue		*hl-NerdfontPalette12*
+NerdfontPalette13	Bright Magenta		*hl-NerdfontPalette13*
+NerdfontPalette14	Bright Cyan		*hl-NerdfontPalette14*
+NerdfontPalette15	Bright White		*hl-NerdfontPalette15*
+
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
