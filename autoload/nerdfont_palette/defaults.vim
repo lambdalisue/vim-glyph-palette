@@ -40,4 +40,7 @@ let g:nerdfont_palette#defaults#palette = {
       \ 'NerdfontPalette9': [
       \   'scss', 'php', 'lua', 'java', 'sh', 'sln', 'suo', 'erl', 'ex', 'exs', 'eex', 'jl',
       \ ],
+      \ 'NerdfontPalette8': [
+      \   '', '', '', '',
+      \ ],
       \}
