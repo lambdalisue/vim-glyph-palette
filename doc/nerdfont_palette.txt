@@ -55,22 +55,22 @@ HIGHLIGHT				*nerdfont-palette-highlight*
 nerdfont_palette defines the following |highlight| groups
 
 Name			Color~
-DevIconsPalette0	Black				*hl-DevIconsPalette0*
-DevIconsPalette1	Red				*hl-DevIconsPalette1*
-DevIconsPalette2	Green				*hl-DevIconsPalette2*
-DevIconsPalette3	Yellow				*hl-DevIconsPalette3*
-DevIconsPalette4	Blue				*hl-DevIconsPalette4*
-DevIconsPalette5	Magenta				*hl-DevIconsPalette5*
-DevIconsPalette6	Cyan				*hl-DevIconsPalette6*
-DevIconsPalette7	White				*hl-DevIconsPalette7*
-DevIconsPalette8	Bright Black			*hl-DevIconsPalette8*
-DevIconsPalette9	Bright Red			*hl-DevIconsPalette9*
-DevIconsPalette10	Bright Green			*hl-DevIconsPalette10*
-DevIconsPalette11	Bright Yellow			*hl-DevIconsPalette11*
-DevIconsPalette12	Bright Blue			*hl-DevIconsPalette12*
-DevIconsPalette13	Bright Magenta			*hl-DevIconsPalette13*
-DevIconsPalette14	Bright Cyan			*hl-DevIconsPalette14*
-DevIconsPalette15	Bright White			*hl-DevIconsPalette15*
+NerdfontPalette0	Black				*hl-NerdfontPalette0*
+NerdfontPalette1	Red				*hl-NerdfontPalette1*
+NerdfontPalette2	Green				*hl-NerdfontPalette2*
+NerdfontPalette3	Yellow				*hl-NerdfontPalette3*
+NerdfontPalette4	Blue				*hl-NerdfontPalette4*
+NerdfontPalette5	Magenta				*hl-NerdfontPalette5*
+NerdfontPalette6	Cyan				*hl-NerdfontPalette6*
+NerdfontPalette7	White				*hl-NerdfontPalette7*
+NerdfontPalette8	Bright Black			*hl-NerdfontPalette8*
+NerdfontPalette9	Bright Red			*hl-NerdfontPalette9*
+NerdfontPalette10	Bright Green			*hl-NerdfontPalette10*
+NerdfontPalette11	Bright Yellow			*hl-NerdfontPalette11*
+NerdfontPalette12	Bright Blue			*hl-NerdfontPalette12*
+NerdfontPalette13	Bright Magenta			*hl-NerdfontPalette13*
+NerdfontPalette14	Bright Cyan			*hl-NerdfontPalette14*
+NerdfontPalette15	Bright White			*hl-NerdfontPalette15*
 
 
 =============================================================================
