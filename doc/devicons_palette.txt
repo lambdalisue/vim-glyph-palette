@@ -1,0 +1,77 @@
+*devicons_palette.txt*			An universal palette for vim-devicons
+
+Author:  Alisue <lambdalisue@hashnote.net>
+License: MIT license
+
+=============================================================================
+CONTENTS				*devicons-palette-contents*
+
+INTRODUCTION				|devicons-palette-introduction|
+INTERFACE				|devicons-palette-interface|
+  VARIABLE				|devicons-palette-variable|
+  FUNCTION				|devicons-palette-function|
+  HIGHLIGHT				|devicons-palette-highlight|
+
+
+=============================================================================
+INTRODUCTION				*devicons-palette-introduction*
+
+TBW
+
+
+=============================================================================
+INTERFACE				*devicons-palette-interface*
+
+-----------------------------------------------------------------------------
+VARIABLE				*devicons-palette-variable*
+
+TBW
+
+-----------------------------------------------------------------------------
+FUNCTION				*devicons-palette-function*
+
+					*devicons_palette#show()*
+devicons_palette#show()
+	Open a new non-file buffer to show the current palette.
+	It is mainly for debugging purpose.
+
+					*devicons_palette#apply()*
+devicons_palette#apply([{immediate}])
+	Apply devicons palette on the current buffer. The actual application
+	has delayed unless {immediate} argument is truthly value.
+	Use this function with |FileType| |autocmd| to apply palette on a
+	particular plugins such as fern.vim, NerdTree, vim-startify, etc.
+>
+	augroup my-devicons-palette
+	  autocmd! *
+	  autocmd FileType fern call devicons_palette#apply()
+	  autocmd FileType nerdtree,startify call devicons_palette#apply()
+	augroup END
+<
+
+-----------------------------------------------------------------------------
+HIGHLIGHT				*devicons-palette-highlight*
+
+devicons_palette defines the following |highlight| groups
+
+Name			Color~
+DevIconsPalette0	Black				*hl-DevIconsPalette0*
+DevIconsPalette1	Red				*hl-DevIconsPalette1*
+DevIconsPalette2	Green				*hl-DevIconsPalette2*
+DevIconsPalette3	Yellow				*hl-DevIconsPalette3*
+DevIconsPalette4	Blue				*hl-DevIconsPalette4*
+DevIconsPalette5	Magenta				*hl-DevIconsPalette5*
+DevIconsPalette6	Cyan				*hl-DevIconsPalette6*
+DevIconsPalette7	White				*hl-DevIconsPalette7*
+DevIconsPalette8	Bright Black			*hl-DevIconsPalette8*
+DevIconsPalette9	Bright Red			*hl-DevIconsPalette9*
+DevIconsPalette10	Bright Green			*hl-DevIconsPalette10*
+DevIconsPalette11	Bright Yellow			*hl-DevIconsPalette11*
+DevIconsPalette12	Bright Blue			*hl-DevIconsPalette12*
+DevIconsPalette13	Bright Magenta			*hl-DevIconsPalette13*
+DevIconsPalette14	Bright Cyan			*hl-DevIconsPalette14*
+DevIconsPalette15	Bright White			*hl-DevIconsPalette15*
+
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
