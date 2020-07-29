@@ -14,8 +14,7 @@
 
 nerdfont-palette is a plugin to provide an universal palette for [nerdfont.vim][] or [vim-devicons][].
 
-Once the plugin has installed, any glyphs of nerdfont (devicons) are
-highlighted by the (customizable) pre-defined palette.
+Once the `nerdfont_palette#apply()` has called on a buffer, any glyphs of nerdfont (devicons) in the applied buffer are highlighted by the (customizable) pre-defined palette.
 
 [nerdfont.vim]: https://github.com/lambdalisue/nerdfont.vim
 [vim-devicons]: https://github.com/ryanoasis/vim-devicons
