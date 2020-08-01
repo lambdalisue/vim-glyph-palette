@@ -5,9 +5,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Doc](https://img.shields.io/badge/doc-%3Ah%20glyph--palette-orange.svg)](doc/glyph-palette.txt)
 
-<center>
 ![glyph-palette](https://user-images.githubusercontent.com/546312/89098136-c442ac80-d41f-11ea-90ce-68f2df7ccb25.png)
-</center>
 
 glyph-palette (Glyph palette) is a plugin to universally apply colors on [Nerd Fonts][].
 
