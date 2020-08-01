@@ -141,7 +141,7 @@ glyph_palette#tools#palette_from({settings}, {glyph_map})
 	      \ 'key': ' ,
 	      \	'vim': '',
 	      \})
-	" { 'Function': ['', '], ''] }
+	" { 'Function': ['', '', ''] }
 <
 	Use this function to construct |g:glyph_palette#palette| from human
 	readable names and glyph map or use this function with
