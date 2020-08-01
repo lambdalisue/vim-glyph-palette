@@ -64,7 +64,12 @@ VARIABLE				*glyph-palette-variable*
 	a |List| of glyphs.
 	To produce palette from names in nerdfont.vim or vim-devicons, see
 	|glyph-palette-tools|.
-
+	Note that the variable does not exists so copy palette from
+	|g:glyph_palette#defaults#palette| to extend the default palette like:
+>
+	let g:glyph_palette#palette = copy(g:glyph_palette#defaults#palette)
+	let g:glyph_palette#palette['GlyphPalette0'] += ['']
+<
 *g:glyph_palette#defaults#palette*
 	A default palette which is assigned to |g:glyph_palette#palette|.
 
