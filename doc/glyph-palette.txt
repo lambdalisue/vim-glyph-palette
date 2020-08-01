@@ -1,0 +1,215 @@
+*glyph-palette.txt*		Universally apply colors on Nerd Fonts glyph
+
+Author:  Alisue <lambdalisue@hashnote.net>
+License: MIT license
+
+=============================================================================
+CONTENTS				*glyph-palette-contents*
+
+INTRODUCTION				|glyph-palette-introduction|
+USAGE					|glyph-palette-usage|
+INTERFACE				|glyph-palette-interface|
+  VARIABLE				|glyph-palette-variable|
+  FUNCTION				|glyph-palette-function|
+  HIGHLIGHT				|glyph-palette-highlight|
+TOOLS					|glyph-palette-tools|
+
+
+=============================================================================
+INTRODUCTION				*glyph-palette-introduction*
+
+*glyph-palette.vim* (Glyph palette) is a plugin to universally apply colors on
+Nerd Fonts (https://github.com/ryanoasis/nerd-fonts).
+
+With this plugin, the following (and potentially more) Nerd Fonts integrations
+will be nicely highlighted.
+
+- https://github.com/ryanoasis/vim-devicons
+- https://github.com/lambdalisue/nerdfont.vim
+- https://github.com/lambdalisue/fern-renderer-nerdfont.vim
+
+
+=============================================================================
+USAGE					*glyph-palette-usage*
+
+First of all, make sure that you are using one of Nerd Fonts Patched Fonts. 
+You will see nice Vim glyph on   if the current font is properly patched.
+See https://github.com/ryanoasis/nerd-fonts for more detail.
+
+After that, call |glyph_palette#apply()| on a target buffer like:
+>
+	augroup my-glyph-palette
+	  autocmd!
+	  autocmd FileType fern call glyph_palette#apply()
+	  autocmd FileType nerdtree call glyph_palette#apply()
+	  autocmd FileType startify call glyph_palette#apply()
+	augroup END
+<
+Then glyphs in |g:glyph_palette#palette| on the buffer will be highlighted by
+predefined highlight groups (|glyph-palette-highlight|).
+
+To customize the palette, modify |g:glyph_palette#palette|.
+To customize the color, change group name (key) in the palette or directly
+overwrite highlgihts in |glyph-palette-highlight|.
+
+
+=============================================================================
+INTERFACE				*glyph-palette-interface*
+
+-----------------------------------------------------------------------------
+VARIABLE				*glyph-palette-variable*
+
+*g:glyph_palette#palette*
+	A palette |Dictionary| which key is a |highlight-group| and value is
+	a |List| of glyphs.
+	To produce palette from names in nerdfont.vim or vim-devicons, see
+	|glyph-palette-tools|.
+
+*g:glyph_palette#defaults#palette*
+	A default palette which is assigned to |g:glyph_palette#palette|.
+
+	Note that the default value has constructed based defx-icons.
+	https://github.com/kristijanhusak/defx-icons
+
+-----------------------------------------------------------------------------
+FUNCTION				*glyph-palette-function*
+
+					*glyph_palette#apply()*
+glyph_palette#apply([{palette}])
+	Apply palette on the current buffer. Use |autocmd| to call this
+	function automatically like:
+>
+	augroup my-glyph-palette
+	  autocmd! *
+	  autocmd FileType fern call glyph_palette#apply()
+	  autocmd FileType nerdtree,startify call glyph_palette#apply()
+	augroup END
+<
+-----------------------------------------------------------------------------
+HIGHLIGHT				*glyph-palette-highlight*
+
+Overwrite the following predfeined |highlight| to change colorset.
+
+GlyphPalette0	Black			*hl-GlyphPalette0*
+GlyphPalette1	Red			*hl-GlyphPalette1*
+GlyphPalette2	Green			*hl-GlyphPalette2*
+GlyphPalette3	Yellow			*hl-GlyphPalette3*
+GlyphPalette4	Blue			*hl-GlyphPalette4*
+GlyphPalette5	Magenta			*hl-GlyphPalette5*
+GlyphPalette6	Cyan			*hl-GlyphPalette6*
+GlyphPalette7	White			*hl-GlyphPalette7*
+GlyphPalette8	Bright Black		*hl-GlyphPalette8*
+GlyphPalette9	Bright Red		*hl-GlyphPalette9*
+GlyphPalette10	Bright Green		*hl-GlyphPalette10*
+GlyphPalette11	Bright Yellow		*hl-GlyphPalette11*
+GlyphPalette12	Bright Blue		*hl-GlyphPalette12*
+GlyphPalette13	Bright Magenta		*hl-GlyphPalette13*
+GlyphPalette14	Bright Cyan		*hl-GlyphPalette14*
+GlyphPalette15	Bright White		*hl-GlyphPalette15*
+
+Note that the default colorset was copied from iceberg.vim
+https://github.com/cocopon/iceberg.vim
+
+
+=============================================================================
+TOOLS					*glyph-palette-tools*
+
+Glyph palette provides the following tool functions
+
+
+				*glyph_palette#tools#palette_from()*
+glyph_palette#tools#palette_from({settings}, {glyph_map})
+	Create a palette |Dictionary| from {settings} |Dictionary| through
+	{glyph_map} |Dictionary|.
+	The key of {settings} is a |highlight-group| and the value is a |List|
+	of a glyph character itself or a key of {glyph_map}.
+	When a key of {glyph_map} is specified, a corresponding value of
+	{glyph_map} is used in a result palette.
+	All duplicated characters in a result palette will be removed.
+>
+	echo glyph_palette#tools#palette_from({
+	      \ 'Function': ['', '', 'vim', 'key'],
+	      \}, {
+	      \ 'key': ' ,
+	      \	'vim': '',
+	      \})
+	" { 'Function': ['', '], ''] }
+<
+	Use this function to construct |g:glyph_palette#palette| from human
+	readable names and glyph map or use this function with
+	|glyph_pattern#tools#print_palette()| to avoid runtime construction.
+
+				*glyph_palette#tools#palette_from_nerdfont()*
+glyph_palette#tools#palette_from_nerdfont({settings})
+	Create {glyph_map} of |glyph_palette#tools#palette_from()| from the
+	following nerdfont.vim variables and return palette.
+
+	- g:nerdfont#path#extension#defaults
+	- g:nerdfont#path#basename#defaults
+
+	https://github.com/lambdalisue/nerdfont.vim
+
+				*glyph_palette#tools#palette_from_devicons()*
+glyph_palette#tools#palette_from_devicons({settings})
+	Create {glyph_map} of |glyph_palette#tools#palette_from()| from the
+	following vim-devicons variables and return palette.
+
+	- g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols
+	- g:WebDevIconsUnicodeDecorateFileNodesExactSymbols
+
+	https://github.com/ryanoasis/vim-devicons
+
+				*glyph_palette#tools#print_colors()*
+glyph_palette#tools#print_colors({index_colors})
+	Create and open a non-file buffer to print |highlight| expressions
+	from {index_colors} for copy-and-paste.
+	The {index_colors} is a |List| which has 16 items and each item
+	indicates terminal indexed colors.
+	Users can use this function to create them original colorset from
+	Vim/Neovim terminal color settings like:
+>
+	" Vim
+	call glyph_palette#tools#print_colors(g:terminal_ansi_colors)
+
+	" Neovim
+	call glyph_palette#tools#print_colors([
+	      \ g:terminal_color_0,
+	      \ g:terminal_color_1,
+	      \ g:terminal_color_2,
+	      \ g:terminal_color_3,
+	      \ g:terminal_color_4,
+	      \ g:terminal_color_5,
+	      \ g:terminal_color_6,
+	      \ g:terminal_color_7,
+	      \ g:terminal_color_8,
+	      \ g:terminal_color_9,
+	      \ g:terminal_color_10,
+	      \ g:terminal_color_11,
+	      \ g:terminal_color_12,
+	      \ g:terminal_color_13,
+	      \ g:terminal_color_14,
+	      \ g:terminal_color_15,
+	      \])
+<
+				*glyph_palette#tools#print_palette()*
+glyph_palette#tools#print_palette({palette})
+	Open a non-file buffer to print {palette} for copy-and-paste.
+	Mainly to avoid runtime palette construction from settings.
+
+				*glyph_palette#tools#show_palette()*
+glyph_palette#tools#show_palette([{palette}])
+	Open a non-file buffer to visualize {palette} for human. It shows the
+	{palette} like:
+>
+	GlyphPalette1(ctermfg=1 guifg=#e27878)      
+	GlyphPalette2(ctermfg=2 guifg=#b4be82)           󿵂 
+	GlyphPalette3(ctermfg=3 guifg=#e2a478) λ               
+	GlyphPalette4(ctermfg=4 guifg=#84a0c6)                  
+	GlyphPalette6(ctermfg=6 guifg=#89b8c2)  
+	GlyphPalette7(ctermfg=7 guifg=#c6c8d1)            
+	GlyphPalette8(ctermfg=8 guifg=#6b7089)        
+	GlyphPalette9(ctermfg=9 guifg=#e98989)                  
+<
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
