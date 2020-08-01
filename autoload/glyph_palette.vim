@@ -22,11 +22,16 @@ function! s:apply_on(winid, palette) abort
 endfunction
 
 function! s:apply(palette) abort
+  let all = []
   for [group, glyphs] in sort(items(a:palette))
+    call extend(all, glyphs)
     let pattern = join(map(copy(glyphs), { -> escape(v:val, s:ESCAPE_PATTERN) }), '\|')
     let pattern = printf('\%%(%s\)', pattern)
-    execute printf('syntax match %s /%s./ contained', group, pattern)
+    execute printf('syntax match %s /%s./ contained containedin=GlyphPalette', group, pattern)
   endfor
+  let pattern = join(map(uniq(sort(all)), { -> escape(v:val, s:ESCAPE_PATTERN) }), '\|')
+  let pattern = printf('\%%(%s\)', pattern)
+  execute printf('syntax match GlyphPalette /%s./ containedin=ALL', pattern)
 endfunction
 
 let g:glyph_palette#palette = get(g:, 'glyph_palette#palette', copy(g:glyph_palette#defaults#palette))
