@@ -75,7 +75,7 @@ VARIABLE				*glyph-palette-variable*
 FUNCTION				*glyph-palette-function*
 
 					*glyph_palette#apply()*
-glyph_palette#apply([{palette}[, {immediate}]])
+glyph_palette#apply([{palette}])
 	Apply palette on the current buffer. Use |autocmd| to call this
 	function automatically like:
 >
@@ -85,8 +85,13 @@ glyph_palette#apply([{palette}[, {immediate}]])
 	  autocmd FileType nerdtree,startify call glyph_palette#apply()
 	augroup END
 <
-	If {immediate} is 1, |syntax| will be applied immediately. Otherwise
-	it will be applied a bit later.
+	It returns a function to clear applied matchies so use it to clear
+	matchies like:
+>
+	let Clear = glyph_palette#apply()
+	" Confirm that hihghlight has applied...
+	call Clear()
+<
 
 -----------------------------------------------------------------------------
 HIGHLIGHT				*glyph-palette-highlight*
