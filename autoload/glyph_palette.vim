@@ -34,11 +34,12 @@ function! glyph_palette#clear() abort
 endfunction
 
 function! s:apply() abort
-  if exists('w:glyph_palette_matches')
-    return
-  elseif !exists('b:glyph_palette_palette')
+  if !exists('b:glyph_palette_palette')
     call glyph_palette#clear()
     return
+  endif
+  if exists('w:glyph_palette_matches')
+    silent! call map(w:glyph_palette_matches, { -> matchdelete(v:val) })
   endif
   let w:glyph_palette_matches = map(
         \ copy(b:glyph_palette_palette),
