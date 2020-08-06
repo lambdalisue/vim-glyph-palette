@@ -90,13 +90,15 @@ glyph_palette#apply([{palette}])
 	  autocmd FileType nerdtree,startify call glyph_palette#apply()
 	augroup END
 <
-	It returns a function to clear applied matchies so use it to clear
-	matchies like:
->
-	let Clear = glyph_palette#apply()
-	" Confirm that hihghlight has applied...
-	call Clear()
-<
+	DEPRECATED~
+	The clear function returned from this function has deprecated. Use
+	|glyph_palette#clear()| on applied buffer instead to clear highlgihts.
+
+					*glyph_palette#clear()*
+glyph_palette#clear()
+	Clear applied glyph palette highlight on the buffer.
+	It also clear highlights on other windows which shows the buffer as
+	well.
 
 -----------------------------------------------------------------------------
 HIGHLIGHT				*glyph-palette-highlight*
