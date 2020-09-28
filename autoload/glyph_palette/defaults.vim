@@ -11,8 +11,8 @@ let g:glyph_palette#defaults#palette = {
       \ 'GlyphPalette4': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       \ 'GlyphPalette6': ['', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       \ 'GlyphPalette7': ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''] ,
-      \ 'GlyphPalette8': ['', '', '', '', '', ''],
       \ 'GlyphPalette9': ['', '', '', '', '', '', '', '', '', '', '', ''],
+      \ 'GlyphPaletteDirectory': ['', '', '', '', '', ''],
       \}
 
 function! glyph_palette#defaults#highlight() abort
@@ -25,6 +25,7 @@ endfunction
 
 if exists('g:terminal_ansi_colors')
   function! s:highlight() abort
+    highlight default link GlyphPaletteDirectory Directory
     for i in range(16)
       execute printf(
             \ 'highlight default GlyphPalette%d ctermfg=%d guifg=%s',
@@ -34,6 +35,7 @@ if exists('g:terminal_ansi_colors')
   endfunction
 elseif exists('g:terminal_color_0')
   function! s:highlight() abort
+    highlight default link GlyphPaletteDirectory Directory
     for i in range(16)
       execute printf(
             \ 'highlight default GlyphPalette%d ctermfg=%d guifg=%s',
@@ -49,6 +51,7 @@ else
   " NOTE:
   " Use glyph_palette#tools#print_colors(colors) function to modify the following variable
   function! s:highlight() abort
+    highlight default link GlyphPaletteDirectory Directory
     if &background ==# 'light'
       highlight default GlyphPalette0  ctermfg=0  guifg=#dcdfe7
       highlight default GlyphPalette1  ctermfg=1  guifg=#cc517a
