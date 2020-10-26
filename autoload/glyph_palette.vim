@@ -12,7 +12,7 @@ function! glyph_palette#apply(...) abort
   let b:glyph_palette_palette = palette
   augroup glyph-palette-internal
     autocmd! * <buffer>
-    autocmd WinEnter <buffer> call s:apply()
+    autocmd BufEnter,WinEnter <buffer> call s:apply()
   augroup END
 
   call s:clear()
