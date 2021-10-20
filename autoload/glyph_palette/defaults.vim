@@ -18,6 +18,9 @@ let g:glyph_palette#defaults#palette = {
 " The following default colors are copied from iceberg.vim
 " REF: https://github.com/cocopon/iceberg.vim
 " MIT: Copyright (c) 2014 cocopon <cocopon@me.com>
+"
+" NOTE:
+" Use glyph_palette#tools#print_colors(colors) function to modify the following variable
 let g:glyph_palette#defaults#colors = {
       \ 'light': [
       \   '#dcdfe7',
