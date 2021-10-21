@@ -54,11 +54,15 @@ function! glyph_palette#tools#show_palette(...) abort
 endfunction
 
 function! s:print_colors(colors) abort
+  let indent = repeat(' ', 6)
+  echo 'let s:colors = {'
+  echo indent . '\ ''__type__'': ['
   let ps = map(copy(a:colors), { k, v -> ['GlyphPalette' . k, k, v] })
-  let es = map(ps, { -> call('printf', ['highlight %s ctermfg=%s guifg=%s'] + v:val) })
-  for expr in es
-    echo expr
+  for color in a:colors
+    echo indent . printf('\   ''%s'',', color)
   endfor
+  echo indent . '\ ],'
+  echo indent . '\}'
 endfunction
 
 function! s:print_palette(palette) abort
