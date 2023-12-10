@@ -76,6 +76,12 @@ VARIABLE				*glyph-palette-variable*
 	Note that the default value has constructed based defx-icons.
 	https://github.com/kristijanhusak/defx-icons
 
+*g:glyph_palette#padding*
+	A padding string which is appended to the end of each glyph in the
+	palette.
+>
+	let g:glyph_palette#padding = ' '
+<
 -----------------------------------------------------------------------------
 FUNCTION				*glyph-palette-function*
 

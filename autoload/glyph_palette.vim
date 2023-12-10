@@ -5,7 +5,8 @@ function! glyph_palette#apply(...) abort
 
   " Optimize palette
   call filter(palette, { -> !empty(v:val) })
-  call map(palette, { -> map(v:val, { -> escape(v:val, s:ESCAPE_PATTERN) }) })
+  call map(palette, { -> map(copy(v:val), { -> escape(v:val, s:ESCAPE_PATTERN) }) })
+  call map(palette, { -> map(v:val, { -> v:val .. g:glyph_palette#padding }) })
   call map(palette, { -> printf('\%%(%s\)', join(v:val, '\|')) })
 
   " Init the buffer
@@ -76,3 +77,4 @@ function! s:deprecated_clear(bufnr) abort
 endfunction
 
 let g:glyph_palette#palette = get(g:, 'glyph_palette#palette', copy(g:glyph_palette#defaults#palette))
+let g:glyph_palette#padding = get(g:, 'glyph_palette#padding', ' ')
