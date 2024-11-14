@@ -12,13 +12,15 @@ glyph-palette (Glyph palette) is a plugin to universally apply colors on [Nerd F
 With this plugin, the following (and potentially more) Nerd Fonts integrations will be nicely highlighted.
 
 - [vim-devicons][]
-- [nerdfont.vim][]
-- [fern-renderer-nerdfont.vim][]
+- [vim-nerdfont][]
+- [vim-fern-renderer-nerdfont][]
+- [fall.vim][]
 
 [nerd fonts]: https://github.com/ryanoasis/nerd-fonts
 [vim-devicons]: https://github.com/ryanoasis/vim-devicons
-[nerdfont.vim]: https://github.com/lambdalisue/nerdfont.vim
-[fern-renderer-nerdfont.vim]: https://github.com/lambdalisue/fern-renderer-nerdfont.vim
+[vim-nerdfont]: https://github.com/lambdalisue/vim-nerdfont
+[vim-fern-renderer-nerdfont]: https://github.com/lambdalisue/vim-fern-renderer-nerdfont
+[fall.vim]: https://github.com/vim-fall/fall.vim
 
 ## Usage
 
@@ -33,6 +35,7 @@ After that, call `glyph_palette#apply()` function on a target buffer like:
 augroup my-glyph-palette
   autocmd! *
   autocmd FileType fern call glyph_palette#apply()
+  autocmd FileType fall-list call glyph_palette#apply()
   autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 ```
@@ -46,6 +49,10 @@ See `:help glyph-palette-usage` for more details
 #### With nerdfont.vim + fern.vim + fern-renderer-nerdfont.vim
 
 ![With nerdfont.vim + fern.vim + fern-renderer-nerdfont.vim](https://user-images.githubusercontent.com/546312/88701008-6c1c5980-d144-11ea-8d6b-d4f4290274a6.png)
+
+#### With fall.vim
+
+![With fall.vim](https://github.com/user-attachments/assets/00e57422-23af-4877-9dc1-362abe11076a)
 
 Provide us your nice screenshots!
 
